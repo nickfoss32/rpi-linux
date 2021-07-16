@@ -39,5 +39,4 @@ fi
 printf "\n# Enable UART\nENABLE_UART = \"1\"\n" >> conf/local.conf
 
 ## Execute bitbake ##
-#MACHINE=raspberrypi2 ENABLE_UART=1 bitbake rpilinux-image
 MACHINE=raspberrypi2 bitbake rpilinux-image
