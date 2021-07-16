@@ -20,12 +20,6 @@ done
 ## Initialize bitbake environment ##
 source ./poky/oe-init-build-env
 
-## If user SSTATE_CACHE was specified, update local.conf with its path ##
-if [ -v SSTATE_CACHE ]; then
-   sed -i "s|#SSTATE_DIR|SSTATE_DIR|g; s|${TOPDIR}/sstate-cache|${SSTATE_CACHE}|g" conf/local.conf
-   sed -i 's|${TOPDIR}||g' conf/local.conf
-fi
-
 ## Configure layers necessary for build ##
 bitbake-layers add-layer \
    ../meta-openembedded/meta-oe \
@@ -35,5 +29,15 @@ bitbake-layers add-layer \
    ../meta-raspberrypi \
    ../meta-rpilinux
 
+## If user SSTATE_CACHE was specified, update local.conf with its path ##
+if [ -v SSTATE_CACHE ]; then
+   sed -i "s|#SSTATE_DIR|SSTATE_DIR|g; s|${TOPDIR}/sstate-cache|${SSTATE_CACHE}|g" conf/local.conf
+   sed -i 's|${TOPDIR}||g' conf/local.conf
+fi
+
+## Enable UART ##
+printf "\n# Enable UART\nENABLE_UART = \"1\"\n" >> conf/local.conf
+
 ## Execute bitbake ##
-MACHINE=raspberrypi2 ENABLE_UART=1 bitbake rpilinux-image
+#MACHINE=raspberrypi2 ENABLE_UART=1 bitbake rpilinux-image
+MACHINE=raspberrypi2 bitbake rpilinux-image
