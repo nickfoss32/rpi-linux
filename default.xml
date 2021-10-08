@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+   <default revision="hardknott" sync-j="4"/>
+
+   <remote name="yocto-project" fetch="git://git.yoctoproject.org"/>
+   <remote name="openembedded" fetch="git://git.openembedded.org"/>
+   
+   <project name="poky" remote="yocto-project"/>
+   <project name="meta-openembedded" remote="openembedded"/>
+   <project name="meta-raspberrypi" remote="yocto-project"/>
+</manifest>
